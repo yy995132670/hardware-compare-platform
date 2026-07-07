@@ -1,4 +1,4 @@
-# Hardware Compare Platform (硬件对比平台)
+<img width="2876" height="900" alt="image" src="https://github.com/user-attachments/assets/67f983a7-31c3-4cb1-a058-6b10190884ca" /># Hardware Compare Platform (硬件对比平台)
 
 中文 CPU / GPU 本地对比平台，包含 PassMark 跑分抓取、MLPerf LLM GPU 推理跑分整合、排行榜与分类对比。
 
@@ -27,6 +27,12 @@
     ├── start-linux.sh
     └── stop-linux.sh
 ```
+
+<img width="2876" height="900" alt="image" src="https://github.com/user-attachments/assets/60fab132-0023-4260-8a57-91bef8b06165" />
+<img width="2080" height="1362" alt="image" src="https://github.com/user-attachments/assets/d27b89b8-7e27-45a9-9af5-671e0a21ab71" />
+<img width="1520" height="1326" alt="image" src="https://github.com/user-attachments/assets/4d1f88ed-f5d9-4efb-920f-1ccb28548585" />
+<img width="1540" height="1186" alt="image" src="https://github.com/user-attachments/assets/d88233b1-766b-4bb1-a048-6db706550a8c" />
+<img width="1018" height="1438" alt="image" src="https://github.com/user-attachments/assets/3b851e90-f96d-420e-afe1-de07cf0e608a" />
 
 ## 快速开始
 
@@ -89,5 +95,6 @@ npm start
 ## 注意事项
 
 - `data/` 目录下的 JSON 数据文件较大（CPU ~60MB, GPU ~35MB），不包含在此仓库中
-- `node_modules/` 不包含在仓库中
+- 数据主要从PassMark扒取，缺少信息从其它地方补全，可能会存在数据有误问题，仅供参考
+- GPU的LLM性能为估算，未经过实际测试，仅供参考
 - 项目默认监听 `2680` 端口，可通过 `PORT` 环境变量覆盖

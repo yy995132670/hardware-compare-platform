@@ -1,4 +1,4 @@
-<img width="2876" height="900" alt="image" src="https://github.com/user-attachments/assets/67f983a7-31c3-4cb1-a058-6b10190884ca" /># Hardware Compare Platform (硬件对比平台)
+# Hardware Compare Platform (硬件对比平台)
 
 中文 CPU / GPU 本地对比平台，包含 PassMark 跑分抓取、MLPerf LLM GPU 推理跑分整合、排行榜与分类对比。
 

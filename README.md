@@ -30,25 +30,37 @@
 
 ## 快速开始
 
-### 1. 安装依赖
+### 1. 克隆仓库
+
+```bash
+git clone git@github.com:yy995132670/hardware-compare-platform.git
+cd hardware-compare-platform
+```
+
+> 后续所有命令都在 `hardware-compare-platform/` 目录下运行。
+> `npm run xxx` 会自动读取该目录下的 `package.json` 中定义的脚本。
+
+### 2. 安装依赖
 
 ```bash
 npm install
 ```
 
-### 2. 拉取数据
+### 3. 拉取数据
 
-第一次运行需要先拉取数据集。数据文件位于 `data/` 目录，包含 CPU/GPU 跑分、规格、验证报告等。
+数据文件位于 `data/` 目录，不包含在仓库中，需通过脚本自行抓取。
 
-**方法：自行抓取（需要 Playwright）**
+**CPU 数据**
 
 ```bash
-# CPU 数据
-npm run scrape           # 抓取 PassMark CPU 跑分
-npm run enrich           # 补充 CPU 规格字段
-npm run verify           # 验证数据集
+npm run scrape    # 抓取 PassMark CPU 跑分
+npm run enrich    # 补充 CPU 规格字段
+npm run verify    # 验证数据集
+```
 
-# GPU 数据
+**GPU 数据**
+
+```bash
 npm run scrape:gpus      # 抓取 PassMark GPU 跑分
 npm run enrich:gpus      # 补充 GPU 规格字段
 npm run scrape:gpu-llm   # 抓取 MLPerf LLM 跑分
@@ -59,7 +71,7 @@ npm run scrape:gpu-llm   # 抓取 MLPerf LLM 跑分
 > npx playwright install chromium
 > ```
 
-### 3. 启动服务
+### 4. 启动服务
 
 ```bash
 npm start

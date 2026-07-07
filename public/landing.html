@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>硬件对比导航</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <div class="bg-orb bg-orb-a"></div>
+      <div class="bg-orb bg-orb-b"></div>
+      <div class="bg-orb bg-orb-c"></div>
+      <div class="bg-grid"></div>
+
+      <header class="topbar panel">
+        <div class="brand-block">
+          <p class="eyebrow">LOCAL VERIFIED DATASET · CPU / GPU BENCHMARK PLATFORM</p>
+          <div class="brand-line">
+            <h1>硬件对比导航页</h1>
+            <span class="brand-badge">Dual Lab</span>
+          </div>
+          <p class="hero-text">
+            进入后可选择 CPU 或 GPU 对比平台。两套页面保持一致的科技风和操作逻辑，支持中文搜索、排行榜、分类榜单、参数对比图和能耗估算。
+          </p>
+        </div>
+
+        <div class="meta-strip">
+          <div class="meta-card">
+            <span>CPU 平台</span>
+            <strong>中文对比、排行、分类</strong>
+          </div>
+          <div class="meta-card">
+            <span>GPU 平台</span>
+            <strong>图形跑分、LLM 跑分、分类</strong>
+          </div>
+          <div class="meta-card">
+            <span>部署入口</span>
+            <strong>本机 2680 端口</strong>
+          </div>
+        </div>
+      </header>
+
+      <section class="platform-grid">
+        <a class="panel platform-card" href="/cpu">
+          <p class="eyebrow">CPU PLATFORM</p>
+          <h2>进入 CPU 对比平台</h2>
+          <p>保留 CPU 型号、分数、参数、分类排行和对比结果，适合桌面、服务器、笔记本处理器对比。</p>
+          <span class="platform-link">打开 CPU 页面</span>
+        </a>
+
+        <a class="panel platform-card" href="/gpu">
+          <p class="eyebrow">GPU PLATFORM</p>
+          <h2>进入 GPU 对比平台</h2>
+          <p>覆盖图形卡、专业卡、服务器 GPU，支持图形分数、DirectX 图形跑分和 MLPerf LLM 推理结果对比。</p>
+          <span class="platform-link">打开 GPU 页面</span>
+        </a>
+      </section>
+    </div>
+  </body>
+</html>

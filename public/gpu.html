@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>中文 GPU 对比平台</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <div class="bg-orb bg-orb-a"></div>
+      <div class="bg-orb bg-orb-b"></div>
+      <div class="bg-orb bg-orb-c"></div>
+      <div class="bg-grid"></div>
+
+      <header class="topbar panel">
+        <div class="brand-block">
+          <div class="utility-links">
+            <a href="/">返回导航页</a>
+            <a href="/cpu">切换到 CPU 平台</a>
+          </div>
+          <p class="eyebrow">LOCAL VERIFIED DATASET · PASSMARK GPU + MLPERF LLM</p>
+          <div class="brand-line">
+            <h1>中文 GPU 对比平台</h1>
+            <span class="brand-badge">Neural Graphics</span>
+          </div>
+          <p class="hero-text">
+            覆盖桌面显卡、移动显卡、工作站显卡与服务器 GPU，支持图形性能排行、LLM 推理参考排行与中文参数对比。
+          </p>
+        </div>
+
+        <div class="meta-strip">
+          <div class="meta-card">
+            <span>GPU 总量</span>
+            <strong id="meta-total">加载中</strong>
+          </div>
+          <div class="meta-card">
+            <span>最后构建</span>
+            <strong id="meta-generated">加载中</strong>
+          </div>
+          <div class="meta-card">
+            <span>LLM 基准</span>
+            <strong id="meta-verification">加载中</strong>
+          </div>
+        </div>
+      </header>
+
+      <nav class="tabs">
+        <a class="tab-button active" data-tab="compare" href="#compare">GPU对比</a>
+        <a class="tab-button" data-tab="graphics" href="#graphics">图形性能排行</a>
+        <a class="tab-button" data-tab="llm" href="#llm">LLM推理性能排行</a>
+      </nav>
+
+      <main>
+        <section class="tab-panel active" data-panel="compare">
+          <section class="panel compare-flow">
+            <div class="panel-heading panel-heading-split">
+              <div>
+                <h2>搜索与选择</h2>
+                <p>先筛选并加入 GPU，再跳转到结果区查看图形分、LLM 参考分和中文参数对比。</p>
+              </div>
+              <a class="anchor-link" href="#compare-results" id="jump-to-results">跳到对比结果</a>
+            </div>
+
+            <div class="search-controls">
+              <label>
+                <span>关键词</span>
+                <input id="search-input" type="search" placeholder="例如：RTX 4090 / Tesla T4 / H100 / Instinct MI300X" />
+              </label>
+              <label>
+                <span>GPU 分类</span>
+                <input id="class-input" type="search" placeholder="例如：Desktop / Workstation / Server" />
+              </label>
+              <label>
+                <span>接口或显存</span>
+                <input id="bus-input" type="search" placeholder="例如：PCIe 5.0 x16 / 80 GB / HBM3" />
+              </label>
+            </div>
+
+            <div class="selection-board">
+              <div class="selection-main">
+                <div class="selected-header">
+                  <div>
+                    <h3>已选 GPU</h3>
+                    <p>最多选择 5 款，支持随时删除并继续补充新的 GPU。</p>
+                  </div>
+                  <button id="clear-selection" class="ghost-button" type="button">清空</button>
+                </div>
+                <div id="selected-gpus" class="chip-list"></div>
+              </div>
+
+              <div class="selection-side">
+                <h3>对比设置</h3>
+                <div class="energy-grid compact-grid">
+                  <label>
+                    <span>日均使用时长（小时）</span>
+                    <input id="hours-input" type="number" min="0" max="24" value="8" />
+                  </label>
+                  <label>
+                    <span>平均 GPU 利用率（0-100%）</span>
+                    <input id="util-input" type="number" min="0" max="100" value="35" />
+                  </label>
+                  <label>
+                    <span>每千瓦时电价（美元）</span>
+                    <input id="cost-input" type="number" min="0" step="0.01" value="0.15" />
+                  </label>
+                </div>
+                <button id="compare-button" class="primary-button" type="button">生成对比结果</button>
+              </div>
+            </div>
+
+            <div id="search-results" class="row-list search-list"></div>
+          </section>
+
+          <section id="compare-results" class="panel result-panel">
+            <div class="result-header">
+              <div>
+                <p class="eyebrow">COMPARE OUTPUT</p>
+                <h2>对比结果</h2>
+                <p class="result-text">可继续回到上方添加新的 GPU，结果区会保留图形性能、LLM 参考性能和中文参数明细。</p>
+              </div>
+              <div class="result-actions">
+                <button id="add-more-button" class="ghost-button" type="button">继续添加 GPU</button>
+                <button id="refresh-compare-button" class="ghost-button" type="button">刷新结果</button>
+              </div>
+            </div>
+
+            <div id="compare-empty" class="empty-state">
+              选择至少一款 GPU 后即可生成对比结果。
+            </div>
+
+            <div id="compare-content" class="compare-content hidden">
+              <div id="compare-summary" class="compare-summary"></div>
+
+              <section class="subsection">
+                <h3>GPU 综合评分对比图</h3>
+                <div id="g3d-chart" class="chart"></div>
+              </section>
+
+              <section class="subsection">
+                <h3>LLM 推理性能对比图（官方公开结果）</h3>
+                <div id="llm-chart" class="chart"></div>
+              </section>
+
+              <section class="subsection">
+                <h3>理论 LLM 推理参考分（仅供参考，非实测）</h3>
+                <div id="llm-theoretical-chart" class="chart"></div>
+              </section>
+
+              <section class="subsection">
+                <h3>中文参数对比明细</h3>
+                <div class="table-scroll">
+                  <table id="compare-table"></table>
+                </div>
+              </section>
+            </div>
+          </section>
+        </section>
+
+        <section class="tab-panel" data-panel="graphics">
+          <section class="panel section-panel">
+            <div class="section-head">
+              <div>
+                <h2>图形性能排行</h2>
+                <p>按综合图形分排序，更适合查看游戏和图形渲染导向的 GPU 排名。</p>
+              </div>
+              <div class="inline-controls">
+                <label>
+                  <span>显示数量</span>
+                  <select id="graphics-ranking-limit">
+                    <option value="20">前 20</option>
+                    <option value="50" selected>前 50</option>
+                    <option value="100">前 100</option>
+                  </select>
+                </label>
+              </div>
+            </div>
+
+            <div id="ranking-game-list" class="row-list row-list-wide"></div>
+          </section>
+        </section>
+
+        <section class="tab-panel" data-panel="llm">
+          <section class="panel section-panel">
+            <div class="section-head">
+              <div>
+                <h2>LLM推理性能排行</h2>
+                <p>按理论 LLM 参考分排序，便于快速查看更适合大模型推理负载的 GPU。</p>
+              </div>
+              <div class="inline-controls">
+                <label>
+                  <span>显示数量</span>
+                  <select id="llm-ranking-limit">
+                    <option value="20">前 20</option>
+                    <option value="50" selected>前 50</option>
+                    <option value="100">前 100</option>
+                  </select>
+                </label>
+              </div>
+            </div>
+
+            <div id="ranking-llm-list" class="row-list row-list-wide"></div>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <script src="/gpu-app.js"></script>
+  </body>
+</html>

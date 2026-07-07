@@ -1,0 +1,21 @@
+{
+  "name": "hardware-compare-zh",
+  "version": "1.0.0",
+  "private": true,
+  "description": "本地中文 CPU / GPU 对比平台，包含 PassMark 抓取、MLPerf LLM 跑分整合、排行榜与分类对比。",
+  "main": "server.js",
+  "scripts": {
+    "scrape": "node scripts/scrape-passmark.js",
+    "enrich": "node scripts/enrich-cpu-data.js",
+    "verify": "node scripts/verify-dataset.js",
+    "scrape:gpus": "node scripts/scrape-passmark-gpus.js",
+    "enrich:gpus": "node scripts/enrich-gpu-data.js",
+    "scrape:gpu-llm": "node scripts/fetch-mlperf-gpu-llm.js",
+    "dev": "node server.js",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "playwright-core": "^1.55.1"
+  }
+}

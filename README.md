@@ -40,16 +40,7 @@ npm install
 
 第一次运行需要先拉取数据集。数据文件位于 `data/` 目录，包含 CPU/GPU 跑分、规格、验证报告等。
 
-**方法一：从上游仓库拉取（推荐）**
-
-```bash
-# 从项目 data 分支或上游仓库拉取数据
-git clone --depth 1 <data-repo-url> tmp-data
-cp -r tmp-data/* data/
-rm -rf tmp-data
-```
-
-**方法二：自行抓取（需要 Playwright）**
+**方法：自行抓取（需要 Playwright）**
 
 ```bash
 # CPU 数据
